@@ -8,11 +8,9 @@ app.get('/', (req, res) => {
     axios.get('https://www.saramin.co.kr/zf_user/tools/spell-check', { params: { content } }).then(r => {
         const { original_text, word_list, result_cnt } = r.data;
         let editedText = original_text;
-        word_list.map(v => {
-            editedText = editedText.replaceAll(v.errorWord, v.candWordList);
-        })
 
         let wrong_list = word_list.map(v => {
+            editedText = editedText.replaceAll(v.errorWord, v.candWordList);
             return { errorWord: v.errorWord, editedWord: v.candWordList };
         })
 
